@@ -24,6 +24,7 @@ export const StateContextProvider = ({ children }) => {
   const address = useAddress()
   const connect = useMetamask()
 
+  // 创建活动
   const publishCampaign = async (form) => {
     try {
       const data = await createCampaign({
@@ -43,6 +44,7 @@ export const StateContextProvider = ({ children }) => {
     }
   }
 
+  // 获取所有活动
   const getCampaigns = async() => {
     const campaigns = await contract.call('getCampaigns')
 
@@ -62,12 +64,40 @@ export const StateContextProvider = ({ children }) => {
     return parseCampaigns;
   }
 
+  //  获取当前登录用户创建的活动
   const getUserCampaigns = async () => {
     const allCampaigns = await getCampaigns()
 
     const filteredCampaigns = allCampaigns.filter((campaign) => campaign.owner === address)
 
     return filteredCampaigns
+  }
+
+  // 众筹付款
+  const donate = async (pId, amount) => {
+    const data = await contract.call('donateToCampaign', [pId], {
+      value: ethers.utils.parseEther(amount)
+    });
+
+    return data;
+  }
+
+  // 获取某个活动的捐赠者和捐赠数量信息
+  const getDonations = async (pId) => {
+    const donations = await contract.call('getDonators',[pId])
+    console.log('---donations:', donations);
+    const numberOfDonations = donations[0].length;
+
+    const parseDonations = []
+
+    for(let i=0; i < numberOfDonations; i++){
+      parseDonations.push({
+        donator: donations[0][i],
+        donation: ethers.utils.formatEther(donations[1][i].toString())
+      })
+    }
+
+    return parseDonations;
   }
 
   return (
@@ -79,6 +109,8 @@ export const StateContextProvider = ({ children }) => {
         createCampaign: publishCampaign,
         getCampaigns,
         getUserCampaigns,
+        donate,
+        getDonations,
       }}
     >
       {children}
