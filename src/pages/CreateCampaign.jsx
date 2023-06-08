@@ -52,7 +52,7 @@ const CreateCampaign = () => {
       {isLoading && <Loader tips="交易正在进行"/>}
       <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
         <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
-          Start a Campaign
+          发起一个项目
         </h1>
       </div>
 
@@ -62,23 +62,23 @@ const CreateCampaign = () => {
       >
         <div className="flex flex-wrap gap-[40px]">
           <FormField
-            labelName="Your Name *"
-            placeholder="Write a name"
+            labelName="昵称 *"
+            placeholder="请输入你的昵称"
             inputType="text"
             value={form.name}
             handleChange={(e) => handleFormFieldChange("name", e)}
           />
           <FormField
-            labelName="Campaign Title *"
-            placeholder="Write a title"
+            labelName="项目标题 *"
+            placeholder="请输入项目标题"
             inputType="text"
             value={form.title}
             handleChange={(e) => handleFormFieldChange("title", e)}
           />
         </div>
         <FormField
-          labelName="Story *"
-          placeholder="Write your story"
+          labelName="项目介绍 *"
+          placeholder="请输入项目相关介绍"
           isTextArea
           value={form.description}
           handleChange={(e) => handleFormFieldChange("description", e)}
@@ -91,20 +91,20 @@ const CreateCampaign = () => {
             className="w-[40px] h-[40px] object-contain"
           />
           <h4 className="font-epilogue font-bold text-[25px] text-white ml-[20px]">
-            You will get 100% of the raised amount
+          您将获得筹集金额的 100%
           </h4>
         </div>
 
         <div className="flex flex-wrap gap-[40px]">
           <FormField
-            labelName="Goal *"
+            labelName="目标金额 *"
             placeholder="ETH 0.50"
             inputType="text"
             value={form.target}
             handleChange={(e) => handleFormFieldChange("target", e)}
           />
           <FormField
-            labelName="End Date *"
+            labelName="截止时间 *"
             placeholder="End Date"
             inputType="date"
             value={form.deadline}
@@ -113,8 +113,8 @@ const CreateCampaign = () => {
         </div>
 
         <FormField
-          labelName="Campaign image *"
-          placeholder="Place image URL of your campaign"
+          labelName="项目封面图 *"
+          placeholder="请输入有效的项目封面图链接"
           inputType="url"
           value={form.image}
           handleChange={(e) => handleFormFieldChange("image", e)}
@@ -123,7 +123,7 @@ const CreateCampaign = () => {
         <div className="flex justify-center items-center mt-[40px]">
           <CustomButton
             btnType="submit"
-            title="Submit new campaign"
+            title="提交项目"
             styles="bg-[#1dc071]"
           />
         </div>
